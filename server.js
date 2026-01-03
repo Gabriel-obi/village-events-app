@@ -47,6 +47,10 @@ app.post("/events", async (req, res) => {
   res.json({ message: "Event saved" });
 });
 
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
+
 app.listen(3000, () => {
   console.log("Server started on port 3000");
 });

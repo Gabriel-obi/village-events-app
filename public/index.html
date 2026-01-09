@@ -1,42 +1,55 @@
-</div> <!-- your last div -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Village Events</title>
+  <meta charset="UTF-8" />
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/script.js"></script>
-<script>
-  const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
-  const SUPABASE_KEY = "YOUR_ANON_PUBLIC_KEY";
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  const supabase = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-  );
+  <!-- Supabase (ONLY ONCE) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
 
-  async function signup() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+<body class="bg-gray-100 p-6">
 
-    const { error } = await sb.auth.signUp({
-      email,
-      password
-    });
+  <!-- AUTH -->
+  <div id="authSection" class="max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Login</h2>
 
-    document.getElementById("authMsg").textContent =
-      error ? error.message : "Signup successful!";
-  }
+    <form id="loginForm" class="space-y-3">
+      <input id="loginEmail" type="email" placeholder="Email" class="w-full p-2 border rounded" required />
+      <input id="loginPassword" type="password" placeholder="Password" class="w-full p-2 border rounded" required />
+      <button class="w-full bg-blue-600 text-white p-2 rounded">Login</button>
+    </form>
 
-  async function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    <p class="text-center my-3">or</p>
 
-    const { error } = await sb.auth.signInWithPassword({
-      email,
-      password
-    });
+    <form id="signupForm" class="space-y-3">
+      <input id="signupEmail" type="email" placeholder="Email" class="w-full p-2 border rounded" required />
+      <input id="signupPassword" type="password" placeholder="Password" class="w-full p-2 border rounded" required />
+      <button class="w-full bg-green-600 text-white p-2 rounded">Sign Up</button>
+    </form>
+  </div>
 
-    document.getElementById("authMsg").textContent =
-      error ? error.message : "Login successful!";
-  }
-</script>
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Village Events</h1>
+      <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+    </div>
 
+    <form id="eventForm" class="mb-6 space-y-2">
+      <input id="title" placeholder="Event title" class="w-full p-2 border rounded" required />
+      <input id="date" type="date" class="w-full p-2 border rounded" required />
+      <textarea id="description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
+      <button class="bg-blue-600 text-white px-4 py-2 rounded">Post Event</button>
+    </form>
+
+    <ul id="events" class="space-y-2"></ul>
+  </div>
+
+  <!-- Your app JS (ONLY ONCE, LAST) -->
+  <script src="/script.js"></script>
 </body>
 </html>

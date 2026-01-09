@@ -1,56 +1,30 @@
 import express from "express";
 import dotenv from "dotenv";
-import { createClient } from "@supabase/supabase-js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(express.static("public"));
+// Needed for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
+// Serve static files
+app.use(express.static(path.join(__dirname, "public")));
 
-// GET events from Supabase
-app.get("/events", async (req, res) => {
-  const { data, error } = await supabase
-    .from("events")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.log("FETCH ERROR:", error);
-    return res.status(500).json(error);
-  }
-
-  res.json(data);
-});
-
-// POST event to Supabase
-app.post("/events", async (req, res) => {
-  const { title, description, date, location } = req.body;
-
-  const { data, error } = await supabase
-    .from("events")
-    .insert([{ title, description, date, location }]);
-
-  if (error) {
-    console.log("INSERT ERROR:", error);
-    return res.status(500).json(error);
-  }
-
-  console.log("INSERT SUCCESS:", data);
-  res.json({ message: "Event saved" });
-});
-
+// Health check (Render)
 app.get("/health", (req, res) => {
-  res.send("OK");
+  res.status(200).send("OK");
 });
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+// Root route (IMPORTANT)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

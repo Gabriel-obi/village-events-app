@@ -11,16 +11,29 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
-<body class="bg-gray-100 p-6">
+<body class="bg-zinc-900 text-white transition-opacity duration-500 opacity-0"></body>
 
   <!-- AUTH -->
-  <div id="authSection" class="max-w-md mx-auto">
+   <div id="authSection" class="transition-opacity duration-300">
+
     <h2 class="text-2xl font-bold mb-4">Login</h2>
 
     <form id="loginForm" class="space-y-3">
-      <input id="loginEmail" type="email" placeholder="Email" class="w-full p-2 border rounded" required />
-      <input id="loginPassword" type="password" placeholder="Password" class="w-full p-2 border rounded" required />
-      <button class="w-full bg-blue-600 text-white p-2 rounded">Login</button>
+      <input
+  id="loginEmail"
+  type="email"
+  placeholder="Email"
+  class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded text-white"
+/>
+<input
+  id="loginPassword"
+  type="password"
+  placeholder="Password"
+  class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded text-white"
+/>
+<button
+class="bg-blue-600 hover:bg-blue-700 active:scale-95 transition-all duration-150"
+>
     </form>
 
     <p class="text-center my-3">or</p>
@@ -32,22 +45,50 @@
     </form>
   </div>
 
-  <!-- DASHBOARD -->
-  <div id="dashboard" class="hidden">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">Village Events</h1>
-      <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+ <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden transition-opacity duration-300"></div>
+
+  <!-- Header -->
+  <header class="flex justify-between items-center py-6 border-b border-zinc-800">
+    <h1 class="text-2xl font-bold tracking-wide">🌙 Village Events</h1>
+    <button id="logoutBtn"
+      class="bg-red-600 hover:bg-red-700 transition px-4 py-2 rounded">
+      Logout
+    </button>
+  </header>
+
+  <!-- Main grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+
+    <!-- Create event -->
+    <div class="md:col-span-1 bg-zinc-800 p-4 rounded-xl shadow">
+      <h2 class="font-semibold mb-3">Create Event</h2>
+
+      <form id="eventForm" class="space-y-3">
+        <input id="title" placeholder="Event title"
+          class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded" required />
+
+        <input id="date" type="date"
+          class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded" required />
+
+        <textarea id="description" placeholder="Description"
+          class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded"></textarea>
+
+        <button
+          class="w-full bg-blue-600 hover:bg-blue-700 transition py-2 rounded">
+          Post Event
+        </button>
+      </form>
     </div>
 
-    <form id="eventForm" class="mb-6 space-y-2">
-      <input id="title" placeholder="Event title" class="w-full p-2 border rounded" required />
-      <input id="date" type="date" class="w-full p-2 border rounded" required />
-      <textarea id="description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
-      <button class="bg-blue-600 text-white px-4 py-2 rounded">Post Event</button>
-    </form>
+    <!-- Events list -->
+    <div class="md:col-span-2">
+      <h2 class="font-semibold mb-3">Upcoming Events</h2>
+      <ul id="events" class="space-y-4"></ul>
+    </div>
 
-    <ul id="events" class="space-y-2"></ul>
   </div>
+</div>
 
   <!-- Your app JS (ONLY ONCE, LAST) -->
   <script src="/script.js"></script>

@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.remove("opacity-0");
+});
+
 console.log("script.js loaded");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -30,8 +34,17 @@ document.addEventListener("DOMContentLoaded", () => {
     } = await supabase.auth.getSession();
 
     if (session) {
-      authSection.classList.add("hidden");
-      dashboard.classList.remove("hidden");
+      authSection.classList.add("opacity-0");
+
+setTimeout(() => {
+  authSection.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  dashboard.classList.add("opacity-0");
+
+  setTimeout(() => {
+    dashboard.classList.remove("opacity-0");
+  }, 50);
+}, 300);
       loadEvents();
     } else {
       authSection.classList.remove("hidden");
@@ -100,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     data.forEach((event) => {
       const li = document.createElement("li");
-      li.className = "bg-white p-4 rounded shadow";
+      li.className =
+  "bg-zinc-800 p-4 rounded shadow transition-all duration-300";
 
       li.innerHTML = `
         <h3 class="font-bold text-lg">${event.title}</h3>
@@ -108,7 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>${event.description || ""}</p>
       `;
 
-      eventsList.appendChild(li);
+      li.classList.add("opacity-0", "translate-y-2");
+eventsList.appendChild(li);
+
+setTimeout(() => {
+  li.classList.remove("opacity-0", "translate-y-2");
+}, 50);
     });
   }
 

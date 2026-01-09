@@ -16,6 +16,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Supabase initialized");
 
+  const themeToggle = document.getElementById("themeToggle");
+
+// Load saved theme
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "light") {
+  document.documentElement.classList.remove("dark");
+  document.body.classList.remove("bg-zinc-900", "text-white");
+  document.body.classList.add("bg-gray-100", "text-black");
+  if (themeToggle) themeToggle.textContent = "🌞";
+} else {
+  document.documentElement.classList.add("dark");
+  if (themeToggle) themeToggle.textContent = "🌙";
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    if (isDark) {
+      document.documentElement.classList.remove("dark");
+      document.body.classList.remove("bg-zinc-900", "text-white");
+      document.body.classList.add("bg-gray-100", "text-black");
+      localStorage.setItem("theme", "light");
+      themeToggle.textContent = "🌞";
+    } else {
+      document.documentElement.classList.add("dark");
+      document.body.classList.remove("bg-gray-100", "text-black");
+      document.body.classList.add("bg-zinc-900", "text-white");
+      localStorage.setItem("theme", "dark");
+      themeToggle.textContent = "🌙";
+    }
+  });
+}
   // Elements
   const authSection = document.getElementById("authSection");
   const dashboard = document.getElementById("dashboard");
@@ -114,7 +147,7 @@ setTimeout(() => {
     data.forEach((event) => {
       const li = document.createElement("li");
       li.className =
-  "bg-zinc-800 p-4 rounded shadow transition-all duration-300";
+  "bg-zinc-800 dark:bg-zinc-800 bg-white text-black dark:text-white p-4 rounded shadow transition-all duration-300";
 
       li.innerHTML = `
         <h3 class="font-bold text-lg">${event.title}</h3>

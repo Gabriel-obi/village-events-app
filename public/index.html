@@ -1,114 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-  tailwind.config = {
-    darkMode: "class"
-  }
-</script>
+ <meta charset="UTF-8" />
   <title>Village Events</title>
-  <meta charset="UTF-8" />
+
+  <style>
+  .fade {
+    animation: fadeIn 0.25s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Supabase (ONLY ONCE) -->
+
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- App script -->
+  <script src="/script.js" defer></script>
 </head>
 
-<body class="bg-zinc-900 text-white transition-colors duration-300"></body>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
-  <!-- AUTH -->
-   <div id="authSection" class="max-w-md mx-auto bg-zinc-800 p-6 rounded shadow transition-colors duration-300"></div>
+<!-- THEME TOGGLE -->
+<button
+  id="themeToggle"
+  class="fixed bottom-4 right-4 z-50 rounded-full p-3 bg-gray-800 text-white dark:bg-yellow-400 dark:text-black shadow-lg"
+>
+  🌙
+</button>
 
-    <h2 class="text-2xl font-bold mb-4">Login</h2>
+<!-- AUTH VIEW -->
+<div id="authView" class="min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-sm bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 fade">
+    <h1 class="text-2xl font-bold text-center mb-6">Village Events</h1>
 
     <form id="loginForm" class="space-y-3">
-      <input
-  id="loginEmail"
-  type="email"
-  placeholder="Email"
-  class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded text-white"
-/>
-<input
-  id="loginPassword"
-  type="password"
-  placeholder="Password"
-  class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded text-white"
-/>
-<button
-class="bg-blue-600 hover:bg-blue-700 active:scale-95 transition-all duration-150"
->
+      <input id="loginEmail" type="email" placeholder="Email"
+        class="w-full p-3 rounded-lg border dark:bg-gray-700" required>
+
+      <input id="loginPassword" type="password" placeholder="Password"
+        class="w-full p-3 rounded-lg border dark:bg-gray-700" required>
+
+      <button class="w-full p-3 rounded-lg bg-blue-600 text-white font-semibold">
+        Login
+      </button>
     </form>
 
-    <p class="text-center my-3">or</p>
+    <p class="text-center my-4 text-sm opacity-70">or</p>
 
     <form id="signupForm" class="space-y-3">
-      <input id="signupEmail" type="email" placeholder="Email" class="w-full p-2 border rounded" required />
-      <input id="signupPassword" type="password" placeholder="Password" class="w-full p-2 border rounded" required />
-      <button class="w-full bg-green-600 text-white p-2 rounded">Sign Up</button>
+      <input id="signupEmail" type="email" placeholder="Email"
+        class="w-full p-3 rounded-lg border dark:bg-gray-700" required>
+
+      <input id="signupPassword" type="password" placeholder="Password"
+        class="w-full p-3 rounded-lg border dark:bg-gray-700" required>
+
+      <button class="w-full p-3 rounded-lg bg-green-600 text-white font-semibold">
+        Sign Up
+      </button>
     </form>
-  </div>
-
- <!-- DASHBOARD -->
-  <div id="dashboard" class="hidden transition-opacity duration-300"></div>
-
-  <!-- Dashboard Header -->
-<div class="flex justify-between items-center mb-6">
-  <h1 class="text-2xl font-bold">Village Events</h1>
-
-  <div class="flex gap-3 items-center">
-    <button
-      id="themeToggle"
-      class="bg-zinc-700 hover:bg-zinc-600 transition px-3 py-2 rounded"
-      title="Toggle theme"
-    >
-      🌙
-    </button>
-
-    <button
-      id="logoutBtn"
-      class="bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded"
-    >
-      Logout
-    </button>
   </div>
 </div>
 
-  <!-- Main grid -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+<!-- DASHBOARD VIEW -->
+<div id="dashboardView" class="hidden min-h-screen fade">
 
-    <!-- Create event -->
-    <div class="md:col-span-1 bg-zinc-800 p-4 rounded-xl shadow">
-      <h2 class="font-semibold mb-3">Create Event</h2>
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 bg-white dark:bg-gray-800 shadow px-4 py-3 flex justify-between items-center">
+    <h2 class="font-bold text-lg">Village Events</h2>
+    <button id="logoutBtn"
+      class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+      Logout
+    </button>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="p-4 space-y-6 max-w-2xl mx-auto">
+
+    <!-- CREATE EVENT -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+      <h3 class="font-semibold mb-3">Create Event</h3>
 
       <form id="eventForm" class="space-y-3">
         <input id="title" placeholder="Event title"
-          class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded" required />
+          class="w-full p-3 rounded-lg border dark:bg-gray-700" required>
 
         <input id="date" type="date"
-          class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded" required />
+          class="w-full p-3 rounded-lg border dark:bg-gray-700" required>
 
         <textarea id="description" placeholder="Description"
-          class="w-full bg-zinc-900 border border-zinc-700 p-2 rounded"></textarea>
+          class="w-full p-3 rounded-lg border dark:bg-gray-700"></textarea>
 
-        <button
-          class="w-full bg-blue-600 hover:bg-blue-700 transition py-2 rounded">
+        <button class="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold">
           Post Event
         </button>
       </form>
-    </div>
+    </section>
 
-    <!-- Events list -->
-    <div class="md:col-span-2">
-      <h2 class="font-semibold mb-3">Upcoming Events</h2>
-      <ul id="events" class="space-y-4"></ul>
-    </div>
+    <!-- EVENTS -->
+    <section>
+      <h3 class="font-semibold mb-3">Upcoming Events</h3>
+      <ul id="events" class="space-y-3"></ul>
+    </section>
 
-  </div>
+  </main>
 </div>
 
-  <!-- Your app JS (ONLY ONCE, LAST) -->
-  <script src="/script.js"></script>
+
 </body>
 </html>

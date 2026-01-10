@@ -1,186 +1,93 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.classList.remove("opacity-0");
-});
+const SUPABASE_URL = "https://pxxmuryywxaompzqzthm.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_ANON_KEY";
 
-console.log("script.js loaded");
-
-document.addEventListener("DOMContentLoaded", () => {
-  const SUPABASE_URL = "https://pxxmuryywxaompzqzthm.supabase.co";
-  const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4eG11cnl5d3hhb21wenF6dGhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcyNzA4ODEsImV4cCI6MjA4Mjg0Njg4MX0.tCVtxfVjmiy1tHVGGGx6790IqPFt3FoMc2bvmJZmkYg";
-
-  const supabase = window.supabase.createClient(
+const supabase =
+  window._supabase ||
+  (window._supabase = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
-  );
+  ));
 
-  console.log("Supabase initialized");
+const authView = document.getElementById("authView");
+const dashboardView = document.getElementById("dashboardView");
 
-  const themeToggle = document.getElementById("themeToggle");
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
+const logoutBtn = document.getElementById("logoutBtn");
+const eventForm = document.getElementById("eventForm");
+const eventsList = document.getElementById("events");
 
-// Load saved theme
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme === "light") {
-  document.documentElement.classList.remove("dark");
-  document.body.classList.remove("bg-zinc-900", "text-white");
-  document.body.classList.add("bg-gray-100", "text-black");
-  if (themeToggle) themeToggle.textContent = "🌞";
-} else {
-  document.documentElement.classList.add("dark");
-  if (themeToggle) themeToggle.textContent = "🌙";
+async function updateUI() {
+  const { data } = await supabase.auth.getSession();
+
+  if (data.session) {
+    authView.classList.add("hidden");
+    dashboardView.classList.remove("hidden");
+    loadEvents();
+  } else {
+    dashboardView.classList.add("hidden");
+    authView.classList.remove("hidden");
+  }
 }
 
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    const isDark = document.documentElement.classList.contains("dark");
+updateUI();
 
-    if (isDark) {
-      document.documentElement.classList.remove("dark");
-      document.body.classList.remove("bg-zinc-900", "text-white");
-      document.body.classList.add("bg-gray-100", "text-black");
-      localStorage.setItem("theme", "light");
-      themeToggle.textContent = "🌞";
-    } else {
-      document.documentElement.classList.add("dark");
-      document.body.classList.remove("bg-gray-100", "text-black");
-      document.body.classList.add("bg-zinc-900", "text-white");
-      localStorage.setItem("theme", "dark");
-      themeToggle.textContent = "🌙";
-    }
+/* LOGIN */
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = loginEmail.value;
+  const password = loginPassword.value;
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) alert(error.message);
+  updateUI();
+});
+
+/* SIGNUP */
+signupForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = signupEmail.value;
+  const password = signupPassword.value;
+
+  const { error } = await supabase.auth.signUp({ email, password });
+  if (error) alert(error.message);
+  else alert("Check your email to confirm");
+});
+
+/* LOGOUT (THIS NOW WORKS) */
+logoutBtn.addEventListener("click", async () => {
+  await supabase.auth.signOut();
+  updateUI();
+});
+
+/* LOAD EVENTS */
+async function loadEvents() {
+  const { data } = await supabase
+    .from("events")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  eventsList.innerHTML = "";
+  data.forEach((e) => {
+    const li = document.createElement("li");
+    li.className = "bg-white dark:bg-gray-800 p-4 rounded shadow";
+    li.innerHTML = `<h3 class="font-bold">${e.title}</h3><p>${e.date}</p>`;
+    eventsList.appendChild(li);
   });
 }
-  // Elements
-  const authSection = document.getElementById("authSection");
-  const dashboard = document.getElementById("dashboard");
 
-  const loginForm = document.getElementById("loginForm");
-  const signupForm = document.getElementById("signupForm");
-  const logoutBtn = document.getElementById("logoutBtn");
+/* CREATE EVENT */
+eventForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-  const eventForm = document.getElementById("eventForm");
-  const eventsList = document.getElementById("events");
-
-  // Auth state handler
-  async function handleAuthState() {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (session) {
-      authSection.classList.add("opacity-0");
-
-setTimeout(() => {
-  authSection.classList.add("hidden");
-  dashboard.classList.remove("hidden");
-  dashboard.classList.add("opacity-0");
-
-  setTimeout(() => {
-    dashboard.classList.remove("opacity-0");
-  }, 50);
-}, 300);
-      loadEvents();
-    } else {
-      authSection.classList.remove("hidden");
-      dashboard.classList.add("hidden");
-    }
-  }
-
-  handleAuthState();
-
-  supabase.auth.onAuthStateChange(() => {
-    handleAuthState();
+  await supabase.from("events").insert({
+    title: title.value,
+    date: date.value,
+    description: description.value,
   });
 
-  // Login
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) alert(error.message);
-  });
-
-  // Signup
-  signupForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("signupEmail").value;
-    const password = document.getElementById("signupPassword").value;
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) {
-      alert(error.message);
-    } else {
-      alert("Check your email to verify your account");
-    }
-  });
-
-  // Logout
-  logoutBtn.addEventListener("click", async () => {
-    await supabase.auth.signOut();
-  });
-
-  // Load events
-  async function loadEvents() {
-    const { data, error } = await supabase
-      .from("events")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    eventsList.innerHTML = "";
-
-    data.forEach((event) => {
-      const li = document.createElement("li");
-      li.className =
-  "bg-zinc-800 dark:bg-zinc-800 bg-white text-black dark:text-white p-4 rounded shadow transition-all duration-300";
-
-      li.innerHTML = `
-        <h3 class="font-bold text-lg">${event.title}</h3>
-        <p class="text-sm text-gray-500">${event.date}</p>
-        <p>${event.description || ""}</p>
-      `;
-
-      li.classList.add("opacity-0", "translate-y-2");
-eventsList.appendChild(li);
-
-setTimeout(() => {
-  li.classList.remove("opacity-0", "translate-y-2");
-}, 50);
-    });
-  }
-
-  // Post event
-  eventForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const title = document.getElementById("title").value;
-    const date = document.getElementById("date").value;
-    const description = document.getElementById("description").value;
-
-    const { error } = await supabase.from("events").insert([
-      { title, date, description },
-    ]);
-
-    if (error) {
-      alert(error.message);
-    } else {
-      eventForm.reset();
-      loadEvents();
-    }
-  });
+  eventForm.reset();
+  loadEvents();
 });

@@ -17,121 +17,70 @@
 </head>
 
 <div class="w-full max-w-md bg-gray-800 rounded-xl shadow-lg p-6"></div>
-<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center px-4 overflow-x-hidden"></body>
 
-  <!-- AUTH SECTION -->
-<div
-  id="authSection"
-  class="min-h-screen flex items-center justify-center bg-gray-900 text-white"
->
-  <div class="w-full max-w-sm bg-gray-800 p-6 rounded-xl shadow-lg">
+<body class="bg-gradient-to-b from-slate-900 to-slate-800 text-white min-h-screen">
 
-    <h1 class="text-x1 sm:text-2xl font-bold text-center">Agulu Village</h1>
+  <!-- PAGE WRAPPER -->
+  <main class="max-w-md mx-auto px-4 py-6">
 
-    <!-- LOGIN -->
-    <form id="loginForm" class="space-y-4">
-      <h2 class="text-lg font-semibold">Login</h2>
+    <!-- HEADER -->
+    <header class="text-center mb-6">
+      <h1 class="text-2xl font-bold tracking-wide">Agulu Village</h1>
+    </header>
 
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Email"
-        required
-        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-      />
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="space-y-6">
 
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-        required
-        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-      />
-
+      <!-- LOGOUT -->
       <button
-        type="submit"
-        class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
+        id="logoutBtn"
+        class="w-full bg-red-600 hover:bg-red-700 transition rounded-lg py-2 font-semibold"
       >
-        Login
+        Logout
       </button>
-    </form>
 
-    <!-- DIVIDER -->
-    <div class="my-6 border-t border-gray-600"></div>
+      <!-- CREATE EVENT CARD -->
+      <div class="bg-slate-800 rounded-xl p-4 shadow-lg">
+        <h2 class="text-lg font-semibold mb-4">Create Event</h2>
 
-    <!-- SIGN UP -->
-    <form id="signupForm" class="space-y-4">
-      <h2 class="text-lg font-semibold">Sign Up</h2>
+        <form id="eventForm" class="space-y-3">
+          <input
+            id="title"
+            placeholder="Event title"
+            required
+            class="w-full p-2 rounded bg-slate-700 text-white"
+          />
 
-      <input
-        id="signupEmail"
-        type="email"
-        placeholder="Email"
-        required
-        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-      />
+          <input
+            id="date"
+            type="date"
+            required
+            class="w-full p-2 rounded bg-slate-700 text-white"
+          />
 
-      <input
-        id="signupPassword"
-        type="password"
-        placeholder="Password"
-        required
-        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-      />
+          <textarea
+            id="description"
+            placeholder="Event description"
+            rows="3"
+            class="w-full p-2 rounded bg-slate-700 text-white"
+          ></textarea>
 
-      <button
-        type="submit"
-        class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
-      >
-        Create Account
-      </button>
-    </form>
+          <button
+            class="w-full bg-blue-600 hover:bg-blue-700 transition rounded-lg py-2 font-semibold"
+          >
+            Post Event
+          </button>
+        </form>
+      </div>
 
-  </div>
-</div>
+      <!-- EVENTS LIST -->
+      <div class="space-y-3">
+        <h2 class="text-lg font-semibold">Upcoming Events</h2>
+        <ul id="events" class="space-y-3"></ul>
+      </div>
 
-  <div id="dashboard" class="hidden">
-     <h1 class="text-x1 sm:text-2xl font-bold text-center">Agulu Village</h1>
+    </section>
+  </main>
 
-<button
-  id="logoutBtn"
-  class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
-  Logout
-</button>
-
-<form
-  id="eventForm"
-  class="bg-gray-800 p-4 rounded mb-6">
-
-  <h2 class="text-lg mb-3">Create Event</h2>
-
-  <input
-    id="title"
-    placeholder="Event title"
-    class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-    required
-  />
-
-  <input
-    id="date"
-    type="date"
-    class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-    required
-  />
-
-  <textarea
-    id="description"
-    placeholder="Event description"
-    class="w-full mb-3 p-2 rounded text-black"></textarea>
-
-  <button
-    class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
-    Post Event
-  </button>
-</form>
-
-<ul id="events" class="space-y-3"></ul>
-  </div>
-</div> 
 </body>
 </html>

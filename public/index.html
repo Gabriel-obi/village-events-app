@@ -17,18 +17,73 @@
 <body class="bg-gray-900 text-white p-4">
 
   <div id="authSection">
-    <h2 class="text-xl mb-2">Login</h2>
-    <form id="loginForm">
-      <input id="loginEmail" placeholder="Email" class="block mb-2 p-2 text-black" />
-      <input id="loginPassword" type="password" placeholder="Password" class="block mb-2 p-2 text-black" />
-      <button class="bg-blue-600 px-4 py-2">Login</button>
-    </form>
-  </div>
+  <div class="mt-6 border-t border-gray-700 pt-4">
+  <h2 class="text-xl mb-2">Sign Up</h2>
+
+  <form id="signupForm">
+    <input
+      id="signupEmail"
+      type="email"
+      placeholder="Email"
+      class="block mb-2 p-2 w-full text-black"
+      required
+    />
+
+    <input
+      id="signupPassword"
+      type="password"
+      placeholder="Password"
+      class="block mb-2 p-2 w-full text-black"
+      required
+    />
+
+    <button class="bg-green-600 px-4 py-2 w-full">
+      Create Account
+    </button>
+  </form>
+</div>
 
   <div id="dashboard" class="hidden">
-    <h1 class="text-2xl mb-4">Village Events</h1>
-    <button id="logoutBtn" class="bg-red-600 px-4 py-2">Logout</button>
-    <ul id="events" class="mt-4"></ul>
+     <h1 class="text-2xl font-bold mb-4 text-center">Village Events</h1>
+
+<button
+  id="logoutBtn"
+  class="w-full mb-4 bg-red-600 py-2 rounded text-white">
+  Logout
+</button>
+
+<form
+  id="eventForm"
+  class="bg-gray-800 p-4 rounded mb-6">
+
+  <h2 class="text-lg mb-3">Create Event</h2>
+
+  <input
+    id="title"
+    placeholder="Event title"
+    class="w-full mb-2 p-2 rounded text-black"
+    required
+  />
+
+  <input
+    id="date"
+    type="date"
+    class="w-full mb-2 p-2 rounded text-black"
+    required
+  />
+
+  <textarea
+    id="description"
+    placeholder="Event description"
+    class="w-full mb-3 p-2 rounded text-black"></textarea>
+
+  <button
+    class="w-full bg-blue-600 py-2 rounded text-white">
+    Post Event
+  </button>
+</form>
+
+<ul id="events" class="space-y-3"></ul>
   </div>
 </body>
 </html>

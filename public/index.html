@@ -16,31 +16,75 @@
 
 <body class="bg-gray-900 text-white p-4">
 
-  <div id="authSection">
-  <div class="mt-6 border-t border-gray-700 pt-4">
-  <h2 class="text-xl mb-2">Sign Up</h2>
+  <!-- AUTH SECTION -->
+<div
+  id="authSection"
+  class="min-h-screen flex items-center justify-center bg-gray-900 text-white"
+>
+  <div class="w-full max-w-sm bg-gray-800 p-6 rounded-xl shadow-lg">
 
-  <form id="signupForm">
-    <input
-      id="signupEmail"
-      type="email"
-      placeholder="Email"
-      class="block mb-2 p-2 w-full text-black"
-      required
-    />
+    <h1 class="text-2xl font-bold text-center mb-6">Village Events</h1>
 
-    <input
-      id="signupPassword"
-      type="password"
-      placeholder="Password"
-      class="block mb-2 p-2 w-full text-black"
-      required
-    />
+    <!-- LOGIN -->
+    <form id="loginForm" class="space-y-4">
+      <h2 class="text-lg font-semibold">Login</h2>
 
-    <button class="bg-green-600 px-4 py-2 w-full">
-      Create Account
-    </button>
-  </form>
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Email"
+        required
+        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+      />
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password"
+        required
+        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+      />
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 transition p-2 rounded"
+      >
+        Login
+      </button>
+    </form>
+
+    <!-- DIVIDER -->
+    <div class="my-6 border-t border-gray-600"></div>
+
+    <!-- SIGN UP -->
+    <form id="signupForm" class="space-y-4">
+      <h2 class="text-lg font-semibold">Sign Up</h2>
+
+      <input
+        id="signupEmail"
+        type="email"
+        placeholder="Email"
+        required
+        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+      />
+
+      <input
+        id="signupPassword"
+        type="password"
+        placeholder="Password"
+        required
+        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+      />
+
+      <button
+        type="submit"
+        class="w-full bg-green-600 hover:bg-green-700 transition p-2 rounded"
+      >
+        Create Account
+      </button>
+    </form>
+
+  </div>
 </div>
 
   <div id="dashboard" class="hidden">

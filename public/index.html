@@ -12,9 +12,12 @@
 
   <!-- Your script (defer is important) -->
   <script src="/app.js" defer></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body class="bg-gray-900 text-white p-4">
+<div class="w-full max-w-md bg-gray-800 rounded-xl shadow-lg p-6"></div>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center px-4 overflow-x-hidden"></body>
 
   <!-- AUTH SECTION -->
 <div
@@ -23,7 +26,7 @@
 >
   <div class="w-full max-w-sm bg-gray-800 p-6 rounded-xl shadow-lg">
 
-    <h1 class="text-2xl font-bold text-center mb-6">Agulu Village</h1>
+    <h1 class="text-x1 sm:text-2xl font-bold text-center">Agulu Village</h1>
 
     <!-- LOGIN -->
     <form id="loginForm" class="space-y-4">
@@ -34,7 +37,7 @@
         type="email"
         placeholder="Email"
         required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
       />
 
       <input
@@ -42,12 +45,12 @@
         type="password"
         placeholder="Password"
         required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
       />
 
       <button
         type="submit"
-        class="w-full bg-blue-600 hover:bg-blue-700 transition p-2 rounded"
+        class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
       >
         Login
       </button>
@@ -65,7 +68,7 @@
         type="email"
         placeholder="Email"
         required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
       />
 
       <input
@@ -73,12 +76,12 @@
         type="password"
         placeholder="Password"
         required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
+        class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
       />
 
       <button
         type="submit"
-        class="w-full bg-green-600 hover:bg-green-700 transition p-2 rounded"
+        class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
       >
         Create Account
       </button>
@@ -88,11 +91,11 @@
 </div>
 
   <div id="dashboard" class="hidden">
-     <h1 class="text-2xl font-bold mb-4 text-center">Agulu Village</h1>
+     <h1 class="text-x1 sm:text-2xl font-bold text-center">Agulu Village</h1>
 
 <button
   id="logoutBtn"
-  class="w-full mb-4 bg-red-600 py-2 rounded text-white">
+  class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
   Logout
 </button>
 
@@ -105,14 +108,14 @@
   <input
     id="title"
     placeholder="Event title"
-    class="w-full mb-2 p-2 rounded text-black"
+    class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
     required
   />
 
   <input
     id="date"
     type="date"
-    class="w-full mb-2 p-2 rounded text-black"
+    class="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
     required
   />
 
@@ -122,12 +125,13 @@
     class="w-full mb-3 p-2 rounded text-black"></textarea>
 
   <button
-    class="w-full bg-blue-600 py-2 rounded text-white">
+    class="w-full bg-blue-600 py-3 rounded-lg font-semibold active:scale-95 transition"></button>
     Post Event
   </button>
 </form>
 
 <ul id="events" class="space-y-3"></ul>
   </div>
+</div> 
 </body>
 </html>

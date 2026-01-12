@@ -1,149 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Agulu Village</title>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Supabase MUST come before script.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- Your script (defer is important) -->
-  <script src="/app.js" defer></script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
 </head>
+<body>
 
-<div class="w-full max-w-md bg-gray-800 rounded-xl shadow-lg p-6"></div>
+  <main class="container">
 
-<body class="bg-gradient-to-b from-slate-900 to-slate-800 text-white min-h-screen">
+    <!-- AUTH SECTION -->
+    <section id="auth-section">
+      <h2 id="auth-title">Login</h2>
 
-  <!-- PAGE WRAPPER -->
-  <main class="max-w-md mx-auto px-4 py-6">
+      <input id="email" type="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
 
-    <!-- HEADER -->
-    <header class="text-center mb-6">
-      <h1 class="text-2xl font-bold tracking-wide">Agulu Village</h1>
-    </header>
+      <button id="auth-btn">Login</button>
 
-    <!-- DASHBOARD -->
-    <section id="dashboard" class="space-y-6">
+      <p class="toggle">
+        No account?
+        <span id="toggle-auth">Sign up</span>
+      </p>
+    </section>
 
-      <!-- LOGOUT -->
-      <button
-        id="logoutBtn"
-        class="w-full bg-red-600 hover:bg-red-700 transition rounded-lg py-2 font-semibold"
-      >
-        Logout
-      </button>
+    <!-- EVENTS SECTION -->
+    <section id="events-section" class="hidden">
 
-      <!-- CREATE EVENT CARD -->
-      <div class="bg-slate-800 rounded-xl p-4 shadow-lg">
-        <h2 class="text-lg font-semibold mb-4">Create Event</h2>
+      <header>
+        <h2 id="village-name">Agulu Village</h2>
+        <button id="logout-btn">Logout</button>
+      </header>
 
-        <form id="eventForm" class="space-y-3">
-          <input
-            id="title"
-            placeholder="Event title"
-            required
-            class="w-full p-2 rounded bg-slate-700 text-white"
-          />
-
-          <input
-            id="date"
-            type="date"
-            required
-            class="w-full p-2 rounded bg-slate-700 text-white"
-          />
-
-          <textarea
-            id="description"
-            placeholder="Event description"
-            rows="3"
-            class="w-full p-2 rounded bg-slate-700 text-white"
-          ></textarea>
-
-          <button
-            class="w-full bg-blue-600 hover:bg-blue-700 transition rounded-lg py-2 font-semibold"
-          >
-            Post Event
-          </button>
-        </form>
+      <div class="card">
+        <input id="event-date" type="date" />
+        <textarea id="event-desc" placeholder="Event description"></textarea>
+        <button id="post-event">Post Event</button>
       </div>
 
-      <!-- EVENTS LIST -->
-      <div class="space-y-3">
-        <h2 class="text-lg font-semibold">Upcoming Events</h2>
-        <ul id="events" class="space-y-3"></ul>
-      </div>
-    <!-- LOGIN -->
-    <form id="loginForm" class="space-y-4">
-      <h2 class="text-lg font-semibold">Login</h2>
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Email"
-        required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
-      />
-
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-        required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
-      />
-
-      <button
-        type="submit"
-        class="w-full bg-blue-600 hover:bg-blue-700 transition p-2 rounded"
-      >
-        Login
-      </button>
-    </form>
-
-    <!-- DIVIDER -->
-    <div class="my-6 border-t border-gray-600"></div>
-
-    <!-- SIGN UP -->
-    <form id="signupForm" class="space-y-4">
-      <h2 class="text-lg font-semibold">Sign Up</h2>
-
-      <input
-        id="signupEmail"
-        type="email"
-        placeholder="Email"
-        required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
-      />
-
-      <input
-        id="signupPassword"
-        type="password"
-        placeholder="Password"
-        required
-        class="w-full p-2 rounded bg-gray-700 text-white outline-none"
-      />
-
-      <button
-        type="submit"
-        class="w-full bg-green-600 hover:bg-green-700 transition p-2 rounded"
-      >
-        Create Account
-      </button>
-    </form>
-
-  </div>
-</div>
+      <h3>Upcoming Events</h3>
+      <ul id="events-list"></ul>
 
     </section>
+
   </main>
 
-</body>
-
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
 </body>
 </html>

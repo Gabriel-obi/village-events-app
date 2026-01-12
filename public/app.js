@@ -70,9 +70,66 @@ logoutBtn.onclick = async () => {
 function showEvents() {
   authSection.classList.add("hidden");
   eventsSection.classList.remove("hidden");
+  loadEvents();
 }
 
 /* SESSION CHECK */
 supabaseClient.auth.getSession().then(({ data }) => {
   if (data.session) showEvents();
 });
+const postBtn = document.getElementById("post-event");
+const eventDate = document.getElementById("event-date");
+const eventDesc = document.getElementById("event-desc");
+const eventsList = document.getElementById("events-list");
+
+/* POST EVENT */
+postBtn.onclick = async () => {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!eventDate.value || !eventDesc.value) {
+    alert("Fill all fields");
+    return;
+  }
+
+  const { error } = await supabaseClient.from("events").insert([
+    {
+      user_id: user.id,
+      event_date: eventDate.value,
+      description: eventDesc.value
+    }
+  ]);
+
+  if (error) {
+    alert(error.message);
+  } else {
+    eventDate.value = "";
+    eventDesc.value = "";
+    loadEvents();
+  }
+};
+
+/* LOAD EVENTS */
+async function loadEvents() {
+  const { data, error } = await supabaseClient
+    .from("events")
+    .select("*")
+    .order("event_date", { ascending: true });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  eventsList.innerHTML = "";
+
+  if (data.length === 0) {
+    eventsList.innerHTML = "<li>No events yet</li>";
+    return;
+  }
+
+  data.forEach(event => {
+    const li = document.createElement("li");
+    li.textContent = `${event.event_date} — ${event.description}`;
+    eventsList.appendChild(li);
+  });
+}
